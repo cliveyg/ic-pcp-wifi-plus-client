@@ -13,7 +13,6 @@ dist-ssr
 *.local
 
 # Editor directories and files
-/*
 /.env
 .vscode/*
 .idea
@@ -32,11 +31,14 @@ dist-ssr
 !src/index.css
 !src/main.tsx
 !src/vite-env.d.ts
+!src/theme.tsx
 !public/*
 !index.html
 !eslint.config.js
 !package.json
 !package-lock.json
+!src/pages/*
+!src/components/*
 !public/favicon.ico
 !public/favicon.png
 !public/favicon.svg
