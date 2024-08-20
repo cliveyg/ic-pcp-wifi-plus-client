@@ -4,6 +4,7 @@ import BasicTabs from "../components/BasicTabs";
 //import darkTheme from './../theme';
 //import Paper from '@mui/material/Paper'
 //import {Button} from "@mui/material";
+import '../App.css'
 
 export default function HomePage() {
 
@@ -11,6 +12,8 @@ export default function HomePage() {
     document.title = 'icPlayer | home'
 
     return (
+        <div className="iframe">
         <BasicTabs />
+        </div>
             )
 }

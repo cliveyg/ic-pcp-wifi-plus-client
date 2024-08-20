@@ -9,12 +9,13 @@ export default function PCPFrame() {
     const windowWidth = React.useRef(window.innerWidth);
     const windowHeight = React.useRef(window.innerHeight);
 
-
     return (
-            <iframe width="500"
-                    height="500"
+        <div className="iframe">
+            <iframe width={windowWidth.current}
+                    height={windowHeight.current -50 }
                     src="http://icplayer.local/cgi-bin/main.cgi"
-                    title="GeeksforGeeks" >
+                    title="Lyrion Music Server" >
             </iframe>
+        </div>
             )
 }
