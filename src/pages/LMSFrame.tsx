@@ -10,10 +10,12 @@ export default function LMSFrame() {
     const windowHeight = React.useRef(window.innerHeight);
 
     return (
+        <div className="iframe">
             <iframe width={windowWidth.current}
-                    height={windowHeight.current}
+                    height={windowHeight.current -50 }
                     src="http://icplayer.local:9000"
-                    title="GeeksforGeeks" >
+                    title="Lyrion Music Server" >
             </iframe>
+        </div>
             )
 }
