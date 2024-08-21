@@ -13,7 +13,7 @@ const BootstrapButton = styled(Button)({
     padding: '6px 12px',
     border: '1px solid',
     height: "20px",
-    width: "400px",
+    fullWidth: true,
     lineHeight: 1.5,
     backgroundColor: '#0063cc',
     borderColor: '#0063cc',

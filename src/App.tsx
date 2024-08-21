@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import TestPage from "./pages/TestPage";
+import WifiPlusPage from "./pages/WifiPlusPage";
 //import {RestorePage} from "@mui/icons-material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PCPFrame from "./pages/PCPFrame";
@@ -12,16 +12,17 @@ import LMSFrame from "./pages/LMSFrame";
 function App() {
   //const [count, setCount] = useState(0)
 
+    const windowWidth = React.useRef(window.innerWidth);
+    const windowHeight = React.useRef(window.innerHeight);
+
   return (
       <BrowserRouter>
-          <div className="top-button">
-              <DrawerMenu />
-          </div>
+          <DrawerMenu />
           <Routes>
-              <Route path="/" element={<TestPage/>}/>
-              <Route path="lms" element={<LMSFrame/>}/>
-              <Route path="pcp" element={<PCPFrame/>}/>
-              <Route path="*" element={<TestPage/>}/>
+              <Route path="/" element={<WifiPlusPage width={windowWidth.current} height={windowHeight.current}/>}/>
+              <Route path="lms" element={<LMSFrame />}/>
+              <Route path="pcp" element={<PCPFrame />}/>
+              <Route path="/*" element={<WifiPlusPage width={windowWidth.current} height={windowHeight.current}/>}/>
           </Routes>
       </BrowserRouter>
   )

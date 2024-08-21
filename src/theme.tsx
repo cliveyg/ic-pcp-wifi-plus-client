@@ -9,9 +9,17 @@ import { red } from '@mui/material/colors';
 
 // A custom theme for this app
 const theme = createTheme({
+    typography: {
+        // Use the system font.
+        fontFamily:
+            '"Varela Round",'+
+            '-apple-system,system-ui,BlinkMacSystemFont,' +
+            '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+        fontSize: 16,
+    },
     palette: {
         primary: {
-            main: '#e26936',
+            main: '#090101',
         },
         secondary: {
             main: '#13796d',

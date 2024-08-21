@@ -15,45 +15,10 @@ import SpeakerIcon from '@mui/icons-material/Speaker';
 import WifiIcon from '@mui/icons-material/Wifi';
 //import BigButton from "./BigButton";
 import SettingsIcon from '@mui/icons-material/Settings';
-import { styled } from '@mui/material/styles';
+//import { styled } from '@mui/material/styles';
+//import MenuIcon from '@mui/icons-material/Menu';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 
-const BigBButton = styled(Button)({
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 16,
-    padding: '6px 12px',
-    border: '1px solid',
-    height: "20px",
-    width: "400px",
-    lineHeight: 1.5,
-    backgroundColor: '#0063cc',
-    borderColor: '#0063cc',
-    fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-        backgroundColor: '#0069d9',
-        borderColor: '#0062cc',
-        boxShadow: 'none',
-    },
-    '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#0062cc',
-        borderColor: '#005cbf',
-    },
-    '&:focus': {
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
-});
 
 export default function DrawerMenu() {
     const [open, setOpen] = React.useState(false);
@@ -61,6 +26,23 @@ export default function DrawerMenu() {
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
+
+    const [dimensions, setDimensions] = React.useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    })
+
+    React.useEffect(() => {
+        function handleResize() {
+            console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+            })
+        }
+        //window.removeEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize)
+    })
 
     const DrawerList = (
         <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
@@ -71,7 +53,11 @@ export default function DrawerMenu() {
                             <ListItemIcon>
                                 <SpeakerIcon />
                             </ListItemIcon>
-                            <ListItemText primary='LMS' />
+                            <ListItemText
+                                primaryTypographyProps={{
+                                    color: '#0c0202',
+                                }}
+                                primary='LMS' />
                         </ListItemButton>
                     </NavLink>
                 </ListItem>
@@ -81,7 +67,11 @@ export default function DrawerMenu() {
                             <ListItemIcon>
                                 <WifiIcon />
                             </ListItemIcon>
-                            <ListItemText primary='WifiPlus' />
+                            <ListItemText
+                                primaryTypographyProps={{
+                                    color: '#0c0202',
+                                }}
+                                primary='WifiPlus' />
                         </ListItemButton>
                     </NavLink>
                 </ListItem>
@@ -91,7 +81,11 @@ export default function DrawerMenu() {
                             <ListItemIcon>
                                 <SettingsIcon />
                             </ListItemIcon>
-                            <ListItemText primary='piCorePlayer' />
+                            <ListItemText
+                                primaryTypographyProps={{
+                                    color: '#0c0202',
+                                }}
+                                primary='piCorePlayer' />
                         </ListItemButton>
                     </NavLink>
                 </ListItem>
@@ -101,7 +95,7 @@ export default function DrawerMenu() {
 
     return (
         <div>
-            <BigBButton onClick={toggleDrawer(true)}>touch me!</BigBButton>
+            <Button onClick={toggleDrawer(true)} sx={{ height: 34, width: dimensions.width }} variant="outlined"><WidgetsIcon /></Button>
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 {DrawerList}
             </Drawer>
