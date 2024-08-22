@@ -1,21 +1,51 @@
-import * as React from 'react'
-//import { MuiThemeProvider } from '@mui/material/styles'
-//import darkTheme from './../theme';
-//import Paper from '@mui/material/Paper'
-//import {Button} from "@mui/material";
+import * as React from "react";
+import '../App.css'
+import Box from '@mui/material/Box';
+import {red, blue, blueGrey} from '@mui/material/colors';
+import {Button} from "@mui/material";
 
-export default function LMSFrame() {
-    document.title = 'icPlayer | home'
-    const windowWidth = React.useRef(window.innerWidth);
-    const windowHeight = React.useRef(window.innerHeight);
+type Props = {
+    width: number;
+    height: number;
+};
+
+const LMSFrame = (props: Props) => {
+    document.title = 'icPlayer | lms'
+    const rr = blueGrey[500]
+    const [dimensions, setDimensions] = React.useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    })
+
+    React.useEffect(() => {
+        function handleResize() {
+            console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+            })
+        }
+
+        window.removeEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize)
+    })
 
     return (
-        <div className="iframe">
-            <iframe width={windowWidth.current}
-                    height={windowHeight.current -50 }
-                    src="http://icplayer.local:9000"
-                    title="Lyrion Music Server" >
-            </iframe>
+        <div>
+            <Box sx={{backgroundColor: rr, height: dimensions.height-34, width: dimensions.width}}>
+                <div className="lms">
+                    <iframe
+                            width={dimensions.width}
+                            height={dimensions.height-44}
+                            src="http://icplayer.local:9000"
+                            title="Lyrion Music Server" >
+                    </iframe>
+                </div>
+            </Box>
         </div>
-            )
-}
+    )
+};
+
+
+
+export default LMSFrame;
