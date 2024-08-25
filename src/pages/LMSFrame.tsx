@@ -29,6 +29,10 @@ const LMSFrame = (props: Props) => {
         window.removeEventListener('resize', handleResize)
         window.addEventListener('resize', handleResize)
     })
+    let lms_url = window["globalLMSURL"]
+    console.log("LMS URL IS:")
+    console.log(window["globalLMSURL"])
+
 
     return (
         <div>
@@ -37,7 +41,7 @@ const LMSFrame = (props: Props) => {
                     <iframe
                             width={dimensions.width}
                             height={dimensions.height-44}
-                            src="http://icplayer.local:9000"
+                            src={lms_url}
                             title="Lyrion Music Server" >
                     </iframe>
                 </div>

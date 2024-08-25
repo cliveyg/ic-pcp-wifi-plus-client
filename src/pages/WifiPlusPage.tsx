@@ -2,6 +2,9 @@ import * as React from "react";
 import '../App.css'
 import Box from '@mui/material/Box';
 import WifiScan from "../components/WifiScan";
+import AppSwitcher from "../components/AppSwitcher";
+import ICSwitcher from "../components/ICSwitcher";
+import WAPStatus from "../components/WAPStatus";
 
 const WifiPlusPage = () => {
     document.title = 'icPlayer | wifiplus'
@@ -27,7 +30,7 @@ const WifiPlusPage = () => {
     return (
         <div>
             <Box sx={{ backgroundColor: rr, height: dimensions.height-34, width: dimensions.width }}>
-                <WifiScan />
+                <AppSwitcher />
             </Box>
         </div>
     )

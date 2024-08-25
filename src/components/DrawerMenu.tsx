@@ -48,7 +48,7 @@ export default function DrawerMenu() {
         <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
             <List>
                 <ListItem key='LMS' disablePadding>
-                    <NavLink to="lms">
+                    <NavLink to="/">
                         <ListItemButton>
                             <ListItemIcon>
                                 <SpeakerIcon />
@@ -62,7 +62,7 @@ export default function DrawerMenu() {
                     </NavLink>
                 </ListItem>
                 <ListItem key='WifiPlus' disablePadding>
-                    <NavLink to="/">
+                    <NavLink to="/wp">
                         <ListItemButton>
                             <ListItemIcon>
                                 <WifiIcon />
@@ -95,7 +95,7 @@ export default function DrawerMenu() {
 
     return (
         <div>
-            <Button onClick={toggleDrawer(true)} sx={{ height: 34, width: dimensions.width }} variant="outlined"><WidgetsIcon /></Button>
+            <Button onClick={toggleDrawer(true)} sx={{ height: 34, width: dimensions.width, borderRadius: 0, border: 0 }} variant="outlined"><WidgetsIcon /></Button>
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 {DrawerList}
             </Drawer>
