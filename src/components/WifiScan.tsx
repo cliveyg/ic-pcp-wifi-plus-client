@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Box} from "@mui/material";
+import {Button, Box, Card, CardContent} from "@mui/material";
 import 'typeface-varela-round'
 import request from 'superagent';
 import Dialog from "@mui/material/Dialog";
@@ -8,6 +8,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CircularProgress from '@mui/material/CircularProgress';
+import WifiOffIcon from '@mui/icons-material/WifiOff';
+import WifiIcon from '@mui/icons-material/Wifi';
+import CheckIcon from '@mui/icons-material/Check';
 
 const WifiScan = () => {
 
@@ -15,12 +18,19 @@ const WifiScan = () => {
     const [wifis, setWifis] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
 
-    function getItemData() {
-        setLoading(true);
-        request.get('http://icplayer.local:8020/wifi/scan')
+
+    function getScanData(bl) {
+        console.log("SCANNNNNNING..........")
+        console.log(window.location)
+
+        setLoading(bl);
+        let serv = window["globalWPURL"] + '/wifi/scan'
+
+        request.get(serv)
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
             .then(res => {
+                console.log(res.body)
                 handleClickOpen(res.body.data)
             })
             .catch(err => {
@@ -29,12 +39,29 @@ const WifiScan = () => {
 
     }
 
-    //getItemData()
+    React.useEffect(() => {
+
+        getScanData(true);
+        const interval = setInterval(() => {
+            getScanData(false);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
     const handleClickOpen = (wifis) => {
         setOpen(true);
         setLoading(false);
         setWifis(wifis)
     };
+
+    const autoJoin = (known) => {
+        alert("autoJoin")
+        console.log("This is where we switch wifi networks")
+        console.log("Known is ["+known+"]")
+        return (event: React.MouseEvent) => {
+            event.preventDefault();
+        }
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -42,32 +69,22 @@ const WifiScan = () => {
 
     return (
         <>
-            <Box sx={{ padding: 1, justifyContent: 'center', backgroundColor: 'inherit', width: 'inherit' }}>
-                <Button onClick={getItemData} variant="contained" sx={{ width: '100%' }}>Scan Wifi Networks</Button>
-            </Box>
             {loading ? (
                 <div className="centered">
                     <CircularProgress />
                 </div>
             ) : (
-                <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>Networks Found</DialogTitle>
-                    <DialogContent>
+                <table>
+                    <tbody>
                         {wifis.map((wifi, index) => {
-                            {console.log(wifi.ssid)}
-                            return (
-                                <div key={index}>
-                                    <DialogContentText>{wifi.ssid}</DialogContentText>
-                                </div>
-                            );
+                            if (window["currentWifi"] === wifi.ssid) {
+                                return (<tr key={index}><td><WifiIcon sx={{ color: '#349369'}} fontSize="small" /></td><td className="scandeets"><div className="mL">{wifi.ssid}</div></td><td><div className="mL"><CheckIcon sx={{ color: '#349369'}} fontSize="small" /></div></td></tr>);
+                            } else {
+                                return (<tr key={index}><td><WifiIcon sx={{ color: '#131212'}} fontSize="small" /></td><td className="scandeets"><div onClick={() => {autoJoin(wifi.known)}} className="mL">{wifi.ssid}</div></td></tr>);
+                            }
                         })}
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} color="primary" autoFocus>
-                            ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                    </tbody>
+                </table>
             )}
         </>
     )

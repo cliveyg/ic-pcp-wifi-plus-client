@@ -29,6 +29,7 @@ const PCPFrame = (props: Props) => {
         window.removeEventListener('resize', handleResize)
         window.addEventListener('resize', handleResize)
     })
+    let pcp_url = window["globalPCPURL"]
 
     return (
         <div>
@@ -37,8 +38,8 @@ const PCPFrame = (props: Props) => {
                     <iframe
                         width={dimensions.width}
                         height={dimensions.height-44}
-                        src="http://icplayer.local/cgi-bin/main.cgi"
-                        title="Lyrion Music Server" >
+                        src={pcp_url}
+                        title="piCorePlayer" >
                     </iframe>
                 </div>
             </Box>
